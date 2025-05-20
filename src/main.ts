@@ -171,6 +171,14 @@ async function run() {
     const channelId = getChannelId(channelName);
     console.log(`Channel: ${channelId} (${channelName})`);
 
+    // Read the 'auto-kill-emulator' input
+    const autoKillEmulatorInput = core.getInput('auto-kill-emulator');
+    // Determine if the emulator should be auto-killed:
+    // Defaults to true if the input is empty, or if it's explicitly 'true'.
+    // Set to false if the input is 'false'.
+    const shouldAutoKillEmulator = autoKillEmulatorInput === '' || autoKillEmulatorInput === 'true';
+    console.log(`Auto-kill emulator: ${shouldAutoKillEmulator}`);
+
     // custom script to run
     const scriptInput = core.getInput('script', { required: true });
     const scripts = parseScript(scriptInput);
@@ -247,10 +255,16 @@ async function run() {
       core.setFailed(error instanceof Error ? error.message : (error as string));
     }
 
-    // finally kill the emulator
-    await killEmulator(port);
+    // Check if emulator should be killed
+    if (shouldAutoKillEmulator) {
+      // finally kill the emulator
+      console.log('Auto-kill emulator is true, terminating emulator.');
+      await killEmulator(port);
+    } else {
+      console.log('Auto-kill emulator is false, emulator will remain running.');
+    }
   } catch (error) {
-    // kill the emulator so the action can exit
+    // kill the emulator so the action can exit, only if auto-kill is enabled
     await killEmulator(port);
     core.setFailed(error instanceof Error ? error.message : (error as string));
   }

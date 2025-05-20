@@ -73,6 +73,9 @@ inputs:
     required: true
   pre-emulator-launch-script:
     description: 'custom script to run after creating the AVD and before launching the emulator - e.g. `./adjust-emulator-configs.sh`'
+  auto-kill-emulator:
+    description: 'whether to automatically kill the emulator process after the script has finished running - `true` or `false`'
+    default: 'true'
 runs:
   using: 'node20'
   main: 'lib/main.js'
