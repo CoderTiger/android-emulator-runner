@@ -574,11 +574,12 @@ function run() {
             // Check if emulator should be killed
             if (shouldAutoKillEmulator) {
                 // finally kill the emulator
-                console.log('Auto-kill emulator is true, terminating emulator.');
+                console.log('auto-kill-emulator is true, terminating emulator.');
                 yield (0, emulator_manager_1.killEmulator)(port);
             }
             else {
-                console.log('Auto-kill emulator is false, emulator will remain running.');
+                console.log('auto-kill-emulator is false, emulator will remain running.');
+                process.exit(0); // Exit the process to allow workflow to continue to next step
             }
         }
         catch (error) {

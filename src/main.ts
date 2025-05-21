@@ -258,10 +258,11 @@ async function run() {
     // Check if emulator should be killed
     if (shouldAutoKillEmulator) {
       // finally kill the emulator
-      console.log('Auto-kill emulator is true, terminating emulator.');
+      console.log('auto-kill-emulator is true, terminating emulator.');
       await killEmulator(port);
     } else {
-      console.log('Auto-kill emulator is false, emulator will remain running.');
+      console.log('auto-kill-emulator is false, emulator will remain running.');
+      process.exit(0); // Exit the process to allow workflow to continue to next step
     }
   } catch (error) {
     // kill the emulator so the action can exit, only if auto-kill is enabled
