@@ -4,6 +4,8 @@
   <a href="https://github.com/ReactiveCircus/android-emulator-runner"><img alt="GitHub Actions status" src="https://github.com/ReactiveCircus/android-emulator-runner/workflows/Main%20workflow/badge.svg"></a>
 </p>
 
+**Main changes of the fork repo**: Support to remain the running of emulator after the action is completed. This is enabled by using the [auto-kill-emulator](#auto-kill-emulator) parameter and setting it to `false`.
+
 A GitHub Action for installing, configuring and running hardware-accelerated Android Emulators on Linux and macOS virtual machines.
 
 The old ARM-based emulators were slow and are no longer supported by Google. The modern Intel Atom (x86 and x86_64) emulators can be fast, but rely on two forms of hardware acceleration to reach their peak potential: [Graphics Acceleration](https://developer.android.com/studio/run/emulator-acceleration#accel-graphics), e.g. `emulator -gpu host` and [Virtual Machine(VM) Acceleration](https://developer.android.com/studio/run/emulator-acceleration#accel-vm), e.g. `emulator -accel on`. **Note:** GPU and VM Acceleration are two different and non-mutually exclusive forms of Hardware Acceleration.
@@ -230,6 +232,7 @@ jobs:
 | `channel` | Optional | stable | Channel to download the SDK components from - `stable`, `beta`, `dev`, `canary` |
 | `script` | Required | N/A | Custom script to run - e.g. to run Android instrumented tests on the emulator: `./gradlew connectedCheck` |
 | `pre-emulator-launch-script` | Optional | N/A | Custom script to run after creating the AVD and before launching the emulator - e.g. `./adjust-emulator-configs.sh` |
+| <a id="auto-kill-emulator"></a>`auto-kill-emulator` | Optional | `false` | Whether to automatically kill the emulator process after the script has finished running - `true` or `false`. |
 
 Default `emulator-options`: `-no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim`.
 
